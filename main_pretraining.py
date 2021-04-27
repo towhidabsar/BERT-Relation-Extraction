@@ -20,7 +20,7 @@ logger = logging.getLogger('__file__')
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--pretrain_data", type=str, default="./data/cnn.txt", \
+    parser.add_argument("--pretrain_data", type=str, default="/content/BERT-Relation-Extraction/data/cnn.txt", \
                         help="pre-training data .txt file path")
     parser.add_argument("--batch_size", type=int, default=32, help="Training batch size")
     parser.add_argument("--freeze", type=int, default=0, help='''1: Freeze most layers until classifier layers\

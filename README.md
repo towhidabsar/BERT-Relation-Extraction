@@ -43,7 +43,7 @@ main_pretraining.py [-h]
 ```
 
 ## Fine-tuning on SemEval2010 Task 8 (BERT<sub>EM</sub>/BERT<sub>EM</sub> + MTB)
-Run main_task.py with arguments below. Requires SemEval2010 Task 8 dataset, available [here.](https://github.com/sahitya0000/Relation-Classification/blob/master/corpus/SemEval2010_task8_all_data.zip) Download & unzip to ./data/ folder.
+Run main_task.py with arguments below. Requires SemEval2010 Task 8 dataset, available [here.](https://github.com/sahitya0000/Relation-Classification/blob/master/corpus/SemEval2010_task8_all_data.zip) Download & unzip to /content/BERT-Relation-Extraction/data/ folder.
 
 ```bash
 main_task.py [-h] 
@@ -115,7 +115,7 @@ Predicted:  Cause-Effect(e2,e1)
 ```
 
 ## FewRel Task
-Download the FewRel 1.0 dataset [here.](https://drive.google.com/drive/folders/1ljobnuzxStFQJSlN4ZHMcMhZtEYaRAHy?usp=sharing) and unzip to ./data/ folder.  
+Download the FewRel 1.0 dataset [here.](https://drive.google.com/drive/folders/1ljobnuzxStFQJSlN4ZHMcMhZtEYaRAHy?usp=sharing) and unzip to /content/BERT-Relation-Extraction/data/ folder.  
 Run main_task.py with argument 'task' set as 'fewrel'.
 ```bash
 python main_task.py --task fewrel

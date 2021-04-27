@@ -97,7 +97,7 @@ class Two_Headed_Loss(nn.Module):
 
 def load_state(net, optimizer, scheduler, args, load_best=False):
     """ Loads saved model and optimizer states if exists """
-    base_path = "./data/"
+    base_path = "/content/BERT-Relation-Extraction/data/"
     amp_checkpoint = None
     checkpoint_path = os.path.join(base_path,"test_checkpoint_%d.pth.tar" % args.model_no)
     best_path = os.path.join(base_path,"test_model_best_%d.pth.tar" % args.model_no)
@@ -122,8 +122,8 @@ def load_state(net, optimizer, scheduler, args, load_best=False):
 
 def load_results(model_no=0):
     """ Loads saved results if exists """
-    losses_path = "./data/test_losses_per_epoch_%d.pkl" % model_no
-    accuracy_path = "./data/test_accuracy_per_epoch_%d.pkl" % model_no
+    losses_path = "/content/BERT-Relation-Extraction/data/test_losses_per_epoch_%d.pkl" % model_no
+    accuracy_path = "/content/BERT-Relation-Extraction/data/test_accuracy_per_epoch_%d.pkl" % model_no
     if os.path.isfile(losses_path) and os.path.isfile(accuracy_path):
         losses_per_epoch = load_pickle("test_losses_per_epoch_%d.pkl" % model_no)
         accuracy_per_epoch = load_pickle("test_accuracy_per_epoch_%d.pkl" % model_no)

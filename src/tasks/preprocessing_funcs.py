@@ -51,7 +51,7 @@ def preprocess_semeval2010_8(args):
     '''
     Data preprocessing for SemEval2010 task 8 dataset
     '''
-    data_path = args.train_data #'./data/SemEval2010_task8_all_data/SemEval2010_task8_training/TRAIN_FILE.TXT'
+    data_path = args.train_data #'/content/BERT-Relation-Extraction/data/SemEval2010_task8_all_data/SemEval2010_task8_training/TRAIN_FILE.TXT'
     logger.info("Reading training file %s..." % data_path)
     with open(data_path, 'r', encoding='utf8') as f:
         text = f.readlines()
@@ -59,7 +59,7 @@ def preprocess_semeval2010_8(args):
     sents, relations, comments, blanks = process_text(text, 'train')
     df_train = pd.DataFrame(data={'sents': sents, 'relations': relations})
     
-    data_path = args.test_data #'./data/SemEval2010_task8_all_data/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT'
+    data_path = args.test_data #'/content/BERT-Relation-Extraction/data/SemEval2010_task8_all_data/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT'
     logger.info("Reading test file %s..." % data_path)
     with open(data_path, 'r', encoding='utf8') as f:
         text = f.readlines()
@@ -205,10 +205,10 @@ def preprocess_fewrel(args, do_lower_case=True):
                 labels.append(relation)
         return sents, labels
         
-    with open('./data/fewrel/train_wiki.json') as f:
+    with open('/content/BERT-Relation-Extraction/data/fewrel/train_wiki.json') as f:
         train_data = json.load(f)
         
-    with  open('./data/fewrel/val_wiki.json') as f:
+    with  open('/content/BERT-Relation-Extraction/data/fewrel/val_wiki.json') as f:
         test_data = json.load(f)
     
     train_sents, train_labels = process_data(train_data)
@@ -304,7 +304,7 @@ def load_dataloaders(args):
         lower_case = False
         model_name = 'BioBERT'
         
-    if os.path.isfile("./data/%s_tokenizer.pkl" % model_name):
+    if os.path.isfile("/content/BERT-Relation-Extraction/data/%s_tokenizer.pkl" % model_name):
         tokenizer = load_pickle("%s_tokenizer.pkl" % model_name)
         logger.info("Loaded tokenizer from pre-trained blanks model")
     else:
@@ -317,16 +317,16 @@ def load_dataloaders(args):
         tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
 
         save_as_pickle("%s_tokenizer.pkl" % model_name, tokenizer)
-        logger.info("Saved %s tokenizer at ./data/%s_tokenizer.pkl" %(model_name, model_name))
+        logger.info("Saved %s tokenizer at /content/BERT-Relation-Extraction/data/%s_tokenizer.pkl" %(model_name, model_name))
     
     e1_id = tokenizer.convert_tokens_to_ids('[E1]')
     e2_id = tokenizer.convert_tokens_to_ids('[E2]')
     assert e1_id != e2_id != 1
     
     if args.task == 'semeval':
-        relations_path = './data/relations.pkl'
-        train_path = './data/df_train.pkl'
-        test_path = './data/df_test.pkl'
+        relations_path = '/content/BERT-Relation-Extraction/data/relations.pkl'
+        train_path = '/content/BERT-Relation-Extraction/data/df_train.pkl'
+        test_path = '/content/BERT-Relation-Extraction/data/df_test.pkl'
         if os.path.isfile(relations_path) and os.path.isfile(train_path) and os.path.isfile(test_path):
             rm = load_pickle('relations.pkl')
             df_train = load_pickle('df_train.pkl')

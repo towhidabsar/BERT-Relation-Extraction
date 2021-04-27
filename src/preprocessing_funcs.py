@@ -192,7 +192,7 @@ class pretrain_dataset(Dataset):
             lower_case = False
             model_name = 'BioBERT'
         
-        tokenizer_path = './data/%s_tokenizer.pkl' % (model_name)
+        tokenizer_path = '/content/BERT-Relation-Extraction/data/%s_tokenizer.pkl' % (model_name)
         if os.path.isfile(tokenizer_path):
             self.tokenizer = load_pickle('%s_tokenizer.pkl' % (model_name))
             logger.info("Loaded tokenizer from saved path.")
@@ -204,7 +204,7 @@ class pretrain_dataset(Dataset):
                 self.tokenizer = Tokenizer.from_pretrained(model, do_lower_case=False)
             self.tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
             save_as_pickle("%s_tokenizer.pkl" % (model_name), self.tokenizer)
-            logger.info("Saved %s tokenizer at ./data/%s_tokenizer.pkl" % (model_name, model_name))
+            logger.info("Saved %s tokenizer at /content/BERT-Relation-Extraction/data/%s_tokenizer.pkl" % (model_name, model_name))
         
         e1_id = self.tokenizer.convert_tokens_to_ids('[E1]')
         e2_id = self.tokenizer.convert_tokens_to_ids('[E2]')
@@ -401,7 +401,7 @@ class Pad_Sequence():
 
 def load_dataloaders(args, max_length=50000):
     
-    if not os.path.isfile("./data/D.pkl"):
+    if not os.path.isfile("/content/BERT-Relation-Extraction/data/D.pkl"):
         logger.info("Loading pre-training data...")
         with open(args.pretrain_data, "r", encoding="utf8") as f:
             text = f.readlines()
@@ -423,7 +423,7 @@ def load_dataloaders(args, max_length=50000):
             
         logger.info("Total number of relation statements in pre-training corpus: %d" % len(D))
         save_as_pickle("D.pkl", D)
-        logger.info("Saved pre-training corpus to %s" % "./data/D.pkl")
+        logger.info("Saved pre-training corpus to %s" % "/content/BERT-Relation-Extraction/data/D.pkl")
     else:
         logger.info("Loaded pre-training data from saved file")
         D = load_pickle("D.pkl")

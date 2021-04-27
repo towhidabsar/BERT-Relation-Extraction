@@ -94,8 +94,8 @@ def train_and_fit(args):
             param.requires_grad = True
     
     if args.use_pretrained_blanks == 1:
-        logger.info("Loading model pre-trained on blanks at ./data/test_checkpoint_%d.pth.tar..." % args.model_no)
-        checkpoint_path = "./data/test_checkpoint_%d.pth.tar" % args.model_no
+        logger.info("Loading model pre-trained on blanks at /content/BERT-Relation-Extraction/data/test_checkpoint_%d.pth.tar..." % args.model_no)
+        checkpoint_path = "/content/BERT-Relation-Extraction/data/test_checkpoint_%d.pth.tar" % args.model_no
         checkpoint = torch.load(checkpoint_path)
         model_dict = net.state_dict()
         pretrained_dict = {k: v for k, v in checkpoint['state_dict'].items() if k in model_dict.keys()}
@@ -192,7 +192,7 @@ def train_and_fit(args):
                     'optimizer' : optimizer.state_dict(),\
                     'scheduler' : scheduler.state_dict(),\
                     'amp': amp.state_dict() if amp is not None else amp
-                }, os.path.join("./data/" , "task_test_model_best_%d.pth.tar" % args.model_no))
+                }, os.path.join("/content/BERT-Relation-Extraction/data/" , "task_test_model_best_%d.pth.tar" % args.model_no))
         
         if (epoch % 1) == 0:
             save_as_pickle("task_test_losses_per_epoch_%d.pkl" % args.model_no, losses_per_epoch)
@@ -205,7 +205,7 @@ def train_and_fit(args):
                     'optimizer' : optimizer.state_dict(),\
                     'scheduler' : scheduler.state_dict(),\
                     'amp': amp.state_dict() if amp is not None else amp
-                }, os.path.join("./data/" , "task_test_checkpoint_%d.pth.tar" % args.model_no))
+                }, os.path.join("/content/BERT-Relation-Extraction/data/" , "task_test_checkpoint_%d.pth.tar" % args.model_no))
     
     logger.info("Finished Training!")
     fig = plt.figure(figsize=(20,20))
@@ -215,7 +215,7 @@ def train_and_fit(args):
     ax.set_xlabel("Epoch", fontsize=22)
     ax.set_ylabel("Training Loss per batch", fontsize=22)
     ax.set_title("Training Loss vs Epoch", fontsize=32)
-    plt.savefig(os.path.join("./data/" ,"task_loss_vs_epoch_%d.png" % args.model_no))
+    plt.savefig(os.path.join("/content/BERT-Relation-Extraction/data/" ,"task_loss_vs_epoch_%d.png" % args.model_no))
     
     fig2 = plt.figure(figsize=(20,20))
     ax2 = fig2.add_subplot(111)
@@ -224,7 +224,7 @@ def train_and_fit(args):
     ax2.set_xlabel("Epoch", fontsize=22)
     ax2.set_ylabel("Training Accuracy", fontsize=22)
     ax2.set_title("Training Accuracy vs Epoch", fontsize=32)
-    plt.savefig(os.path.join("./data/" ,"task_train_accuracy_vs_epoch_%d.png" % args.model_no))
+    plt.savefig(os.path.join("/content/BERT-Relation-Extraction/data/" ,"task_train_accuracy_vs_epoch_%d.png" % args.model_no))
     
     fig3 = plt.figure(figsize=(20,20))
     ax3 = fig3.add_subplot(111)
@@ -233,6 +233,6 @@ def train_and_fit(args):
     ax3.set_xlabel("Epoch", fontsize=22)
     ax3.set_ylabel("Test F1 Accuracy", fontsize=22)
     ax3.set_title("Test F1 vs Epoch", fontsize=32)
-    plt.savefig(os.path.join("./data/" ,"task_test_f1_vs_epoch_%d.png" % args.model_no))
+    plt.savefig(os.path.join("/content/BERT-Relation-Extraction/data/" ,"task_test_f1_vs_epoch_%d.png" % args.model_no))
     
     return net

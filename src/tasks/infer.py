@@ -25,7 +25,7 @@ logging.basicConfig(format='%(asctime)s [%(levelname)s]: %(message)s', \
 logger = logging.getLogger('__file__')
 
 def load_pickle(filename):
-    completeName = os.path.join("./data/",\
+    completeName = os.path.join("/content/BERT-Relation-Extraction/data/",\
                                 filename)
     with open(completeName, 'rb') as pkl_file:
         data = pickle.load(pkl_file)
@@ -260,7 +260,7 @@ class FewRel(object):
                                             model_size='bert-base-uncased',
                                             task='fewrel')
         
-        if os.path.isfile('./data/%s_tokenizer.pkl' % model_name):
+        if os.path.isfile('/content/BERT-Relation-Extraction/data/%s_tokenizer.pkl' % model_name):
             self.tokenizer = load_pickle("%s_tokenizer.pkl" % model_name)
             logger.info("Loaded tokenizer from saved file.")
         else:
@@ -272,7 +272,7 @@ class FewRel(object):
                 self.tokenizer = Tokenizer.from_pretrained(model, do_lower_case=False)
             self.tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
             save_as_pickle("%s_tokenizer.pkl" % model_name, self.tokenizer)
-            logger.info("Saved %s tokenizer at ./data/%s_tokenizer.pkl" %(model_name, model_name))
+            logger.info("Saved %s tokenizer at /content/BERT-Relation-Extraction/data/%s_tokenizer.pkl" %(model_name, model_name))
             
         
         self.net.resize_token_embeddings(len(self.tokenizer))
@@ -282,8 +282,8 @@ class FewRel(object):
             self.net.cuda()
         
         if self.args.use_pretrained_blanks == 1:
-            logger.info("Loading model pre-trained on blanks at ./data/test_checkpoint_%d.pth.tar..." % args.model_no)
-            checkpoint_path = "./data/test_checkpoint_%d.pth.tar" % self.args.model_no
+            logger.info("Loading model pre-trained on blanks at /content/BERT-Relation-Extraction/data/test_checkpoint_%d.pth.tar..." % args.model_no)
+            checkpoint_path = "/content/BERT-Relation-Extraction/data/test_checkpoint_%d.pth.tar" % self.args.model_no
             checkpoint = torch.load(checkpoint_path)
             model_dict = self.net.state_dict()
             pretrained_dict = {k: v for k, v in checkpoint['state_dict'].items() if k in model_dict.keys()}
